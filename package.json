@@ -8,7 +8,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"deploy": "gh-pages -d build"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -20,6 +21,7 @@
 		"flowbite": "^2.5.2",
 		"flowbite-svelte": "^0.47.2",
 		"flowbite-svelte-icons": "^2.0.2",
+		"gh-pages": "^3.2.3",
 		"globals": "^15.0.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",

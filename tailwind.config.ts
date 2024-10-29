@@ -1,11 +1,24 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        footer: '#795D3B',
+        header: '#F9F1E7',
+        button: '#426B1F',
+        background: '#FFFFFF',
+        welcomeText: '#000000',
+        contentText: '#FCF7F7',
+      
+      },
+      fontFamily: {
+        'pt-serif': ['PT Serif', 'serif'],
+      },
+    },
   },
 
-  plugins: []
-} satisfies Config;
+  plugins: [],
+} as Config;

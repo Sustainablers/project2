@@ -7,9 +7,9 @@
 
     export let name = "Deployed by Sustainablers";
 
-    // Redirect to root path (/) on mount
+    // Redirect to root path (/project2) on mount
     onMount(() => {
-        goto('/'); // Redirect to root path
+        goto('/project2/'); // Redirect to the project base path
     });
 </script>
 
@@ -89,9 +89,9 @@
     <header>
         <h1 class="title">World Peas</h1>
         <nav class="tabs">
-            <a class="tab" href="/" aria-label="home">Home</a>
-            <a class="tab" href="/shop" aria-label="shop">Shop</a>
-            <a class="tab" href="/contact" aria-label="contact">Contact</a>
+            <a class="tab" href="/project2/" aria-label="home">Home</a>
+            <a class="tab" href="/project2/shop" aria-label="shop">Shop</a>
+            <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
         </nav>
         <button class="basket-button" aria-label="basket">
             <CartOutline style="width: 16px; height: 16px;" /> <!-- Adjust icon size -->

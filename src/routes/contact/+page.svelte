@@ -18,9 +18,7 @@
 </script>
 
 <style>
-    body {
-        font-family: 'PT Serif', serif; /* Set the font for the body */
-    }
+   
 </style>
 
 <div class="min-h-screen flex flex-col items-center justify-start bg-white">

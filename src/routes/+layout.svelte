@@ -9,7 +9,7 @@
 
     // Redirect to root path (/project2) on mount
     onMount(() => {
-        goto('/project2/'); // Redirect to the project base path
+        goto('/project2'); // Redirect to the project base path
     });
 </script>
 

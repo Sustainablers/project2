@@ -9,7 +9,7 @@
 
     // Redirect to root path (/project2) on mount
     onMount(() => {
-        goto('/project2'); // Redirect to the project base path
+        goto('/project2/'); // Fixed typo here
     });
 </script>
 
@@ -51,12 +51,12 @@
         border-radius: 5px;
         cursor: pointer;
         display: flex;
-        align-items: center; /* Align icon and text vertically */
+        align-items: center;
         font-size: 14px;
-        white-space: nowrap; /* Prevent text from wrapping */
+        white-space: nowrap;
     }
     .basket-button span {
-        margin-left: 5px; /* Space between icon and text */
+        margin-left: 5px;
     }
     footer {
         background-color: #426B1F;
@@ -67,6 +67,9 @@
         bottom: 0;
         width: 100%;
         height: 50px;
+    }
+    main {
+        margin-bottom: 60px; /* Adjust based on footer height to prevent overlap */
     }
     @media (max-width: 500px) {
         header {
@@ -94,7 +97,7 @@
             <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
         </nav>
         <button class="basket-button" aria-label="basket">
-            <CartOutline style="width: 16px; height: 16px;" /> <!-- Adjust icon size -->
+            <CartOutline style="width: 16px; height: 16px;" />
             <span>My Cart</span>
         </button>
     </header>

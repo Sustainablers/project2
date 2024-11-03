@@ -92,7 +92,7 @@
     <header>
         <h1 class="title">World Peas</h1>
         <nav class="tabs">
-            <a class="tab" href="/project2/" aria-label="home">Home</a>
+            <a class="tab" href="/project2/" aria-label=" ">Home</a>
             <a class="tab" href="/project2/shop" aria-label="shop">Shop</a>
             <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
         </nav>

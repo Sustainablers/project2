@@ -1,1 +1,0 @@
-import"../chunks/disclose-version.Bg9kRutz.js";import{n as a}from"../chunks/runtime.DUnEXJsc.js";import{t as e,a as p}from"../chunks/template.DlPZK4b4.js";function i(t){a();var o=e("home");p(t,o)}export{i as component};

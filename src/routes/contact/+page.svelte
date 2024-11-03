@@ -41,7 +41,7 @@
                 </div>
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold mb-2">Working Time</h2>
-                    <p>Monday-Saturday: 6:00 - 17:00</p>
+                    <p>Monday-Saturday: 9:00 am  - 5:00 pm </p>
                 </div>
             </div>
             <div class="md:w-1/2 md:pl-8 flex flex-col items-center">

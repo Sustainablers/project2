@@ -4,7 +4,7 @@
 
     // Redirect to root path (/) on mount
     onMount(() => {
-        goto('/'); // Redirect to root path
+        goto('/project2/'); // Redirect to root path
     });
 </script>
 

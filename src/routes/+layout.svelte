@@ -3,13 +3,13 @@
     import '../app.css';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
-    import { CartOutline } from 'flowbite-svelte-icons'; // Import the CartOutline icon
+    import { CartOutline } from 'flowbite-svelte-icons'; 
 
     export let name = "Deployed by Sustainablers";
 
-    // Redirect to root path (/project2) on mount
+    
     onMount(() => {
-        goto('/project2/'); // Fixed typo here
+        goto('/project2/'); 
     });
 </script>
 
@@ -92,7 +92,7 @@
     <header>
         <h1 class="title">World Peas</h1>
         <nav class="tabs">
-            <a class="tab" href="/project2/" aria-label=" ">Home</a>
+            <a class="tab" href="/project2/" aria-label="home">Home</a>
             <a class="tab" href="/project2/shop" aria-label="shop">Shop</a>
             <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
         </nav>

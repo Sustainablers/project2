@@ -3,12 +3,13 @@
     import '../app.css';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
+    import { CartOutline } from 'flowbite-svelte-icons'; // Import the CartOutline icon
 
     export let name = "Deployed by Sustainablers";
 
-    // Redirect to /home on mount
+    // Redirect to root path (/) on mount
     onMount(() => {
-        goto('/project2/home'); // Adjusted path for GitHub Pages
+        goto('/'); // Redirect to root path
     });
 </script>
 
@@ -18,8 +19,7 @@
         justify-content: space-between;
         align-items: center;
         background-color: #F9F1E7;
-        padding: 10px;
-        border-bottom: 2px solid #426B1F;
+        padding: 20px;
         flex-wrap: wrap;
     }
     .title {
@@ -47,12 +47,19 @@
         background-color: #426B1F;
         color: #FCF7F7;
         border: none;
-        padding: 10px;
+        padding: 8px 12px;
         border-radius: 5px;
         cursor: pointer;
+        display: flex;
+        align-items: center; /* Align icon and text vertically */
+        font-size: 14px;
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
+    .basket-button span {
+        margin-left: 5px; /* Space between icon and text */
     }
     footer {
-        background-color: #795D3B;
+        background-color: #426B1F;
         color: #FCF7F7;
         text-align: center;
         padding: 10px;
@@ -82,14 +89,16 @@
     <header>
         <h1 class="title">World Peas</h1>
         <nav class="tabs">
-            <a class="tab" href="/project2/home" aria-label="home">Home</a>
-            <a class="tab" href="/project2/shop" aria-label="shop">Shop</a>
-            <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
+            <a class="tab" href="/" aria-label="home">Home</a>
+            <a class="tab" href="/shop" aria-label="shop">Shop</a>
+            <a class="tab" href="/contact" aria-label="contact">Contact</a>
         </nav>
         <button class="basket-button" aria-label="basket">
-            <!-- Basket icon -->
+            <CartOutline style="width: 16px; height: 16px;" /> <!-- Adjust icon size -->
+            <span>My Cart</span>
         </button>
     </header>
+    
     <slot />
 </main>
 <footer>

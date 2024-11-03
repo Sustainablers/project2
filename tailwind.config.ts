@@ -1,8 +1,7 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
-
   theme: {
     extend: {
       colors: {
@@ -12,13 +11,12 @@ export default {
         background: '#FFFFFF',
         welcomeText: '#000000',
         contentText: '#FCF7F7',
-      
       },
       fontFamily: {
-        'pt-serif': ['PT Serif', 'serif'],
+        'montserrat': ['Montserrat', 'sans-serif'], // Add Montserrat
+        'pt-serif': ['PT Serif', 'serif'], // Add PT Serif
       },
     },
   },
-
   plugins: [],
 } as Config;

@@ -37,24 +37,24 @@
     }
 
     .shop-button {
-        background-color: #426B1F; /* Button background color */
-        color: #FCF7F7; /* Button text color */
-        border: none; /* Remove border */
-        padding: 15px 30px; /* Button padding */
-        border-radius: 5px; /* Rounded corners */
-        cursor: pointer; /* Pointer cursor on hover */
-        font-size: 1.25rem; /* Large font size for button */
-        margin-top: 20px; /* Space above the button */
-        transition: background-color 0.3s; /* Transition effect */
+        background-color: #426B1F; 
+        color: #FCF7F7; 
+        border: none;
+        padding: 15px 30px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 1.25rem;
+        margin-top: 20px; 
+        transition: background-color 0.3s;
     }
     
     .shop-button:hover {
-        background-color: #5B8A3C; /* Darken button color on hover */
+        background-color: #5B8A3C; 
     }
 </style>
 
 <main>
     <h1>Welcome!</h1>
     <p>We’re <span class="italic">farmers</span>, <span class="italic">purveyors</span>, and <span class="italic">eaters</span> of organically grown food.</p>
-    <button class="shop-button" on:click={() => goto('/shop')}>Browse our shop</button>
+    <button class="shop-button" on:click={() => goto('/project2/shop')}>Browse our shop</button>
 </main>

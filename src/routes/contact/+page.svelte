@@ -67,7 +67,8 @@
                         <textarea class="w-full p-2 border border-gray-300 rounded" placeholder="Hi! I'd like to ask about" bind:value={message}></textarea>
                     </div>
                     <div>
-                        <button type="submit" class="w-full p-2 bg-green-700 text-white rounded">Submit</button>
+                        <button type="submit" class="w-full p-2 text-white rounded" style="background-color: #5B8A3C;">Submit</button>
+
                     </div>
                 </form>
             </div>

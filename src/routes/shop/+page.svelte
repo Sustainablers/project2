@@ -1,12 +1,20 @@
 <script>
+    // @ts-nocheck
+    
     import { Card, Button } from 'flowbite-svelte';
-
-    // Filtering and Sorting State
+    
     let filterType = 'all';
     let showResults = 16;
     let sortBy = 'name';
-
-    // Sample Data for Fruits, Vegetables, and Grains
+    let showModal = false;
+    // @ts-ignore
+    let selectedItem = null; 
+    let quantity = 1;
+    
+    function calculatePrice() {
+        return selectedItem.price * quantity;
+    }
+    
     const items = {
         fruits: [
             { name: 'Apple', image: 'images/apple.jpg', description: 'Fresh and juicy apple', price: 100 },
@@ -27,24 +35,39 @@
             { name: 'Barley', image: 'images/Barley grain.jpg', description: 'Nutritious barley', price: 90 },
             { name: 'Oats', image: 'images/Oats.jpg', description: 'Whole oats', price: 110 },
             { name: 'Millet', image: 'images/Millet.jpg', description: 'Organic millet', price: 95 },
-        ]
+        ],
     };
-
-    // Derived array based on filter and sort options
+    
     $: filteredItems = (filterType === 'all'
         ? [...items.fruits, ...items.vegetables, ...items.grains]
         // @ts-ignore
         : items[filterType]
-    )
         // @ts-ignore
-        .sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : a.price - b.price)
+    ).sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : a.price - b.price)
         .slice(0, showResults);
-</script>
-
-<div class="container mx-auto px-4 my-6 bg-transparent">
-    <!-- Filter and Sort Controls -->
-    <div class="bg-green-800 text-white p-2 flex flex-col md:flex-row items-stretch justify-between">
-        <!-- Filter Section -->
+    
+    // @ts-ignore
+    function handleBuyNow(item) {
+        selectedItem = item; 
+        showModal = true; 
+    }
+    
+    function closeModal() {
+        showModal = false; 
+        selectedItem = null; 
+    }
+    
+    // @ts-ignore
+    function handleSubmit(event) {
+        event.preventDefault();
+        // @ts-ignore
+        alert('Order placed for ' + selectedItem.name);
+        closeModal(); 
+    }
+    </script>
+    
+    <!-- Full-Width Filter Section -->
+    <div class="w-full bg-[#426B1F] text-white p-2 flex flex-col md:flex-row items-stretch justify-between">
         <div class="flex items-center space-x-2">
             <button class="flex items-center space-x-1">
                 <i class="fas fa-filter"></i>
@@ -57,7 +80,6 @@
                 <option value="grains">Grains</option>
             </select>
         </div>
-        <!-- Show & Sort Section -->
         <div class="flex items-center space-x-2">
             <span>Show</span>
             <input type="number" bind:value={showResults} class="w-10 text-black text-center" min="1" />
@@ -68,19 +90,22 @@
             </select>
         </div>
     </div>
-
-    <!-- Product Collection Display -->
+  <!-- Container for Products -->
+<div class="container mx-auto px-4 my-6 bg-transparent">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
         {#each filteredItems as item}
-            <Card padding="none" class="w-full flex flex-col justify-between mx-auto relative group">
-                <a href="/">
-                    <img class="w-full h-[300px] object-cover rounded-t-lg" src={item.image} alt={item.name} />
-                    <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button class="m-1 bg-blue-500 text-white rounded-full w-36 h-10 flex items-center justify-center">Add to Cart</Button>
-                        <Button class="m-1 bg-green-500 text-white rounded-full w-36 h-10 flex items-center justify-center">Buy Now</Button>
-                    </div>
-                </a>
-                <div class="px-5 py-4 bg-gray-100 flex flex-col justify-between h-full">
+            <!-- Standardize Card width and height -->
+            <Card padding="none" class="w-64 h-[300px] flex flex-col justify-between mx-auto relative group">
+                <!-- Standardize image size -->
+                <div class="flex justify-center items-center">
+                    <img class="w-[250px] h-[200px] object-cover rounded-t-lg" src={item.image} alt={item.name} />
+                </div>
+                
+                <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button on:click={() => handleBuyNow(item)} class="m-1 bg-green-500 text-white rounded-full w-36 h-10 flex items-center justify-center">Buy Now</Button>
+                </div>
+                <div class="px-3 py-2 bg-gray-100 flex flex-col justify-between">
+                
                     <a href="/">
                         <h5 class="text-lg font-semibold text-gray-900">{item.name}</h5>
                         <p class="text-sm text-gray-600">{item.description}</p>
@@ -91,3 +116,53 @@
         {/each}
     </div>
 </div>
+
+ <!-- Order Form Modal -->
+{#if showModal}
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded shadow-lg w-full max-w-4xl flex"> <!-- Increased max-width -->
+        <!-- Order Form Section -->
+        <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-4">Order Form for </h2>
+            <form on:submit={handleSubmit}>
+                <div class="space-y-4">
+                    <div class="flex space-x-4">
+                        <input type="text" placeholder="Name" class="flex-1 p-2 border rounded" required />
+                        <input type="text" placeholder="Last Name" class="flex-1 p-2 border rounded" required />
+                    </div>
+                    <input type="email" placeholder="Email" class="w-full p-2 border rounded" required />
+                    <input type="tel" placeholder="Phone" class="w-full p-2 border rounded" required />
+                    <input type="text" value="Philippines" class="w-full p-2 border rounded bg-gray-100" readOnly />
+                    <input type="text" placeholder="Address" class="w-full p-2 border rounded" required />
+                    <div class="flex space-x-4">
+                        <input type="text" placeholder="Postal Code" class="flex-1 p-2 border rounded" required />
+                        <input type="text" placeholder="City" class="flex-1 p-2 border rounded" required />
+                    </div>
+                    <input type="text" placeholder="Barangay" class="w-full p-2 border rounded" required />
+                    <input type="text" placeholder="Region" class="w-full p-2 border rounded" required />
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
+                    <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="w-full md:w-[700px] bg-[#A1B88E] p-6 rounded-r-lg ml-4"> <!-- Increased width further -->
+            <h2 class="text-lg font-semibold mb-4">Order Summary</h2>
+            <div class="bg-white p-4 rounded-lg flex items-center border-2 border-[#535C4B]">
+                <img src={selectedItem.image} alt={selectedItem.name} class="w-24 h-24 rounded mr-4" />
+                <div class="flex-1">
+                    <h3 class="font-semibold">{selectedItem.name}</h3>
+                    <div class="flex items-center mt-2">
+                        <input type="number" bind:value={quantity} min="1" class="w-16 p-1 border rounded mr-2 border-[#535C4B]" on:input={() => calculatePrice()} />
+                        <span class="text-gray-700">₱{(selectedItem.price * quantity).toFixed(2)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{/if}

@@ -13,8 +13,8 @@ export default {
         contentText: '#FCF7F7',
       },
       fontFamily: {
-        'montserrat': ['Montserrat', 'sans-serif'], // Add Montserrat
-        'pt-serif': ['PT Serif', 'serif'], // Add PT Serif
+        'newsreader': ['Newsreader', 'serif'],
+        // Add other font families if needed
       },
     },
   },

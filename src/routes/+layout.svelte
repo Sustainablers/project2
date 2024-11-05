@@ -3,13 +3,12 @@
     import '../app.css';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
-    import { CartOutline } from 'flowbite-svelte-icons'; 
+    import { CartOutline } from 'flowbite-svelte-icons';
 
     export let name = "Deployed by Sustainablers";
 
-    
     onMount(() => {
-        goto('/project2/'); 
+        goto('/'); 
     });
 </script>
 
@@ -21,11 +20,14 @@
         background-color: #F9F1E7;
         padding: 20px;
         flex-wrap: wrap;
+        font-family: 'Newsreader', serif;
     }
     .title {
         font-weight: bold;
+        font-size: x-large;
         color: #426B1F;
         margin-left: 10px;
+        font-family: 'Newsreader', serif; 
     }
     nav.tabs {
         display: flex;
@@ -39,11 +41,12 @@
         font-weight: bold;
         display: flex;
         align-items: center;
+        font-family: 'Newsreader', serif; 
     }
     nav.tabs a.tab:hover {
         color: #426B1F;
     }
-    .basket-button {
+    .shop-button {
         background-color: #426B1F;
         color: #FCF7F7;
         border: none;
@@ -53,10 +56,12 @@
         display: flex;
         align-items: center;
         font-size: 14px;
+        font-family: 'Newsreader', serif; 
+        font-weight: bold;
         white-space: nowrap;
     }
-    .basket-button span {
-        margin-left: 5px;
+    .shop-button:hover {
+        background-color: #365618;
     }
     footer {
         background-color: #426B1F;
@@ -67,9 +72,11 @@
         bottom: 0;
         width: 100%;
         height: 50px;
+        font-family: 'Newsreader', serif;
     }
     main {
-        margin-bottom: 60px; /* Adjust based on footer height to prevent overlap */
+        margin-bottom: 60px; 
+        font-family: 'Newsreader', serif; 
     }
     @media (max-width: 500px) {
         header {
@@ -90,16 +97,13 @@
 
 <main>
     <header>
-        <h1 class="title">World Peas</h1>
+        <h1 class="title">Pure Harvest</h1>
         <nav class="tabs">
-            <a class="tab" href="/project2/" aria-label="home">Home</a>
-            <a class="tab" href="/project2/shop" aria-label="shop">Shop</a>
-            <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
+            <a class="tab" href="/" aria-label="home">Home</a>
+            <a class="tab" href="/contact" aria-label="contact">Contact</a>
+            <button class="shop-button" aria-label="shop" on:click={() => goto('/shop')}>Shop</button>
         </nav>
-        <button class="basket-button" aria-label="basket">
-            <CartOutline style="width: 16px; height: 16px;" />
-            <span>My Cart</span>
-        </button>
+      
     </header>
     
     <slot />

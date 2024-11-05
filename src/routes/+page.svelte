@@ -15,9 +15,10 @@
         justify-content: center;
         align-items: center;
         height: 100vh; /* Full viewport height */
-        background-image: url('/images/background.jpg'); /* Set background image */
+        background-image: url('/images/background.png'); /* Set background image */
         background-size: cover; /* Cover the entire area */
         background-position: center; /* Center the background */
+        background-attachment: fixed; /* Fix background during scroll */
         text-align: center; /* Center text */
         color: #FCF7F7; /* Set text color */
         font-family: 'montserrat', sans-serif; /* Use Montserrat */

@@ -8,7 +8,7 @@
     export let name = "Deployed by Sustainablers";
 
     onMount(() => {
-        goto('/'); 
+        goto('/project2/'); 
     });
 </script>
 
@@ -99,9 +99,9 @@
     <header>
         <h1 class="title">Pure Harvest</h1>
         <nav class="tabs">
-            <a class="tab" href="/" aria-label="home">Home</a>
-            <a class="tab" href="/contact" aria-label="contact">Contact</a>
-            <button class="shop-button" aria-label="shop" on:click={() => goto('/shop')}>Shop</button>
+            <a class="tab" href="/project2/" aria-label="home">Home</a>
+            <a class="tab" href="/project2/contact" aria-label="contact">Contact</a>
+            <button class="shop-button" aria-label="shop" on:click={() => goto('/project2/shop')}>Shop</button>
         </nav>
       
     </header>

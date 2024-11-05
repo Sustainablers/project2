@@ -1,4 +1,6 @@
 <script>
+    // @ts-nocheck
+    import '../app.css';
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
@@ -20,16 +22,18 @@
         background-position: center; /* Center the background */
         text-align: center; /* Center text */
         color: #FCF7F7; /* Set text color */
-        font-family: 'montserrat', sans-serif; /* Use Montserrat */
+        font-family: 'Newsreader', serif; /* Use Newsreader font */
         padding: 20px;
     }
 
     h1 {
         font-size: 3rem; /* Large font size for heading */
+        font-family: 'Newsreader', serif; /* Use Newsreader font */
     }
 
     p {
         font-size: 1.5rem; /* Large font size for paragraph */
+        font-family: 'Newsreader', serif; /* Use Newsreader font */
     }
 
     .italic {
@@ -46,6 +50,7 @@
         font-size: 1.25rem;
         margin-top: 20px; 
         transition: background-color 0.3s;
+        font-family: 'Newsreader', serif; /* Use Newsreader font */
     }
     
     .shop-button:hover {

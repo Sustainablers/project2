@@ -104,7 +104,9 @@
                 <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button on:click={() => handleBuyNow(item)} class="m-1 bg-green-500 text-white rounded-full w-36 h-10 flex items-center justify-center">Buy Now</Button>
                 </div>
+                <!-- Standardize content area size and padding -->
                 <div class="px-3 py-2 bg-gray-100 flex flex-col justify-between">
+                  
                 
                     <a href="/">
                         <h5 class="text-lg font-semibold text-gray-900">{item.name}</h5>

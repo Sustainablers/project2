@@ -18,7 +18,7 @@
         justify-content: space-between;
         align-items: center;
         background-color: #F9F1E7;
-        padding: 20px;
+        padding: 15px;
         flex-wrap: wrap;
         font-family: 'Newsreader', serif;
     }

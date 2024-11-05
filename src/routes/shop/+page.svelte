@@ -125,7 +125,7 @@
     <div class="bg-white p-6 rounded shadow-lg w-full max-w-4xl flex"> <!-- Increased max-width -->
         <!-- Order Form Section -->
         <div class="flex-1">
-            <h2 class="text-2xl font-bold mb-4">Order Form for </h2>
+            <h2 class="text-2xl font-bold mb-4">Order Form </h2>
             <form on:submit={handleSubmit}>
                 <div class="space-y-4">
                     <div class="flex space-x-4">

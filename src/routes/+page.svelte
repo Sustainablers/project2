@@ -4,9 +4,8 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
-    // Redirect to root path (/) on mount
     onMount(() => {
-        goto('/project2/'); // Redirect to root path
+        goto('/project2/'); 
     });
 </script>
 
@@ -16,28 +15,28 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Full viewport height */
-        background-image: url('/images/background.jpg'); /* Set background image */
-        background-size: cover; /* Cover the entire area */
-        background-position: center; /* Center the background */
-        text-align: center; /* Center text */
-        color: #FCF7F7; /* Set text color */
-        font-family: 'Newsreader', serif; /* Use Newsreader font */
+        height: 100vh;
+        background-image: url('/images/background.jpg'); 
+        background-size: cover; 
+        background-position: center; 
+        text-align: center; 
+        color: #FCF7F7; 
+        font-family: 'Newsreader', serif; 
         padding: 20px;
     }
 
     h1 {
-        font-size: 3rem; /* Large font size for heading */
-        font-family: 'Newsreader', serif; /* Use Newsreader font */
+        font-size: 3rem; 
+        font-family: 'Newsreader', serif; 
     }
 
     p {
-        font-size: 1.5rem; /* Large font size for paragraph */
-        font-family: 'Newsreader', serif; /* Use Newsreader font */
+        font-size: 1.5rem; 
+        font-family: 'Newsreader', serif; 
     }
 
     .italic {
-        font-style: italic; /* Italic style for specific words */
+        font-style: italic; 
     }
 
     .shop-button {
@@ -50,7 +49,7 @@
         font-size: 1.25rem;
         margin-top: 20px; 
         transition: background-color 0.3s;
-        font-family: 'Newsreader', serif; /* Use Newsreader font */
+        font-family: 'Newsreader', serif; 
     }
     
     .shop-button:hover {

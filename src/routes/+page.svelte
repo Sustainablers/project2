@@ -5,7 +5,7 @@
     import { goto } from '$app/navigation';
 
     onMount(() => {
-        goto('/project2/'); 
+        goto('./'); 
     });
 </script>
 
@@ -60,5 +60,5 @@
 <main>
     <h1>Welcome!</h1>
     <p>We’re <span class="italic">farmers</span>, <span class="italic">purveyors</span>, and <span class="italic">eaters</span> of organically grown food.</p>
-    <button class="shop-button" on:click={() => goto('/project2/shop')}>Browse our shop</button>
+    <button class="shop-button" on:click={() => goto('./shop')}>Browse our shop</button>
 </main>

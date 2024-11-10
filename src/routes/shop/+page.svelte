@@ -102,7 +102,6 @@
             <Card padding="none" class="w-full h-auto flex flex-col justify-between mx-auto relative group">
                
                 <div class="flex justify-center items-center">
-                    <!-- Responsive Image -->
                     <img class="w-full h-auto max-h-[200px] object-cover rounded-t-lg" src={item.image} alt={item.name} />
                 </div>
                 

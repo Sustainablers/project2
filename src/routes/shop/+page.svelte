@@ -94,23 +94,26 @@
             </select>
         </div>
     </div>
-  <!-- Container for Products -->
+ <!-- Container for Products -->
 <div class="container mx-auto px-4 my-6 bg-transparent">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
         {#each filteredItems as item}
         
-            <Card padding="none" class="w-64 h-[300px] flex flex-col justify-between mx-auto relative group">
+            <Card padding="none" class="w-full h-auto flex flex-col justify-between mx-auto relative group">
                
                 <div class="flex justify-center items-center">
-                    <img class="w-[250px] h-[200px] object-cover rounded-t-lg" src={item.image} alt={item.name} />
+                    <!-- Responsive Image -->
+                    <img class="w-full h-auto max-h-[200px] object-cover rounded-t-lg" src={item.image} alt={item.name} />
                 </div>
                 
                 <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button on:click={() => handleBuyNow(item)} class="m-1 bg-green-500 text-white rounded-full w-36 h-10 flex items-center justify-center">Buy Now</Button>
+                  <Button on:click={() => handleBuyNow(item)} 
+        class="m-1 bg-green-500 text-white rounded-full w-32 sm:w-36 h-8 sm:h-10 flex items-center justify-center">
+    Buy Now
+</Button>
+
                 </div>
                 <div class="px-3 py-2 bg-gray-100 flex flex-col justify-between">
-                  
-                
                     <a href="/">
                         <h5 class="text-lg font-semibold text-gray-900">{item.name}</h5>
                         <p class="text-sm text-gray-600">{item.description}</p>
@@ -166,7 +169,7 @@
                         <input type="number" bind:value={quantity} min="1"  max="20" class="w-16 p-1 border rounded mr-2 border-[#535C4B]"  on:input={() => {
                  if (quantity > 20) {
             alert("Quantity limit is 20.");
-            quantity = 20; // Set quantity back to the max limit
+            quantity = 20; 
         }
         calculatePrice();
     }} 

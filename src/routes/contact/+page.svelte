@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold mb-2">Email</h2>
-                    <p>sustainablers@gordoncollege.edu.ph</p>
+                    <p>sustainablers@gmail.com</p>
                 </div>
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold mb-2">Working Time</h2>

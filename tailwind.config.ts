@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         'newsreader': ['Newsreader', 'serif'],
-        // Add other font families if needed
+      
       },
     },
   },

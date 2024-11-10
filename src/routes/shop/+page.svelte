@@ -1,5 +1,4 @@
 <script>
-    // @ts-nocheck
     
     import { Card, Button } from 'flowbite-svelte';
     
@@ -7,7 +6,6 @@
     let showResults = 16;
     let sortBy = 'name';
     let showModal = false;
-    // @ts-ignore
     let selectedItem = null; 
     let quantity = 1;
     
@@ -40,13 +38,11 @@
     
     $: filteredItems = (filterType === 'all'
         ? [...items.fruits, ...items.vegetables, ...items.grains]
-        // @ts-ignore
         : items[filterType]
-        // @ts-ignore
+       
     ).sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : a.price - b.price)
         .slice(0, showResults);
     
-    // @ts-ignore
     function handleBuyNow(item) {
         selectedItem = item; 
         showModal = true; 
@@ -57,10 +53,9 @@
         selectedItem = null; 
     }
     
-    // @ts-ignore
     function handleSubmit(event) {
         event.preventDefault();
-        // @ts-ignore
+
         alert('Order placed for ' + selectedItem.name);
         closeModal(); 
     }
@@ -94,9 +89,9 @@
 <div class="container mx-auto px-4 my-6 bg-transparent">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
         {#each filteredItems as item}
-            <!-- Standardize Card width and height -->
+        
             <Card padding="none" class="w-64 h-[300px] flex flex-col justify-between mx-auto relative group">
-                <!-- Standardize image size -->
+               
                 <div class="flex justify-center items-center">
                     <img class="w-[250px] h-[200px] object-cover rounded-t-lg" src={item.image} alt={item.name} />
                 </div>
@@ -104,7 +99,6 @@
                 <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button on:click={() => handleBuyNow(item)} class="m-1 bg-green-500 text-white rounded-full w-36 h-10 flex items-center justify-center">Buy Now</Button>
                 </div>
-                <!-- Standardize content area size and padding -->
                 <div class="px-3 py-2 bg-gray-100 flex flex-col justify-between">
                   
                 
@@ -118,17 +112,17 @@
         {/each}
     </div>
 </div>
-
- <!-- Order Form Modal -->
+<!-- Order Form Modal -->
 {#if showModal}
-<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div class="bg-white p-6 rounded shadow-lg w-full max-w-4xl flex"> <!-- Increased max-width -->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 px-4">
+    <div class="bg-white p-4 md:p-6 rounded shadow-lg w-full max-w-4xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
+        
         <!-- Order Form Section -->
-        <div class="flex-1">
-            <h2 class="text-2xl font-bold mb-4">Order Form </h2>
+        <div class="flex-1 w-full">
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">Order Form</h2>
             <form on:submit={handleSubmit}>
                 <div class="space-y-4">
-                    <div class="flex space-x-4">
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <input type="text" placeholder="Name" class="flex-1 p-2 border rounded" required />
                         <input type="text" placeholder="Last Name" class="flex-1 p-2 border rounded" required />
                     </div>
@@ -136,33 +130,51 @@
                     <input type="tel" placeholder="Phone" class="w-full p-2 border rounded" required />
                     <input type="text" value="Philippines" class="w-full p-2 border rounded bg-gray-100" readOnly />
                     <input type="text" placeholder="Address" class="w-full p-2 border rounded" required />
-                    <div class="flex space-x-4">
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
                         <input type="text" placeholder="Postal Code" class="flex-1 p-2 border rounded" required />
                         <input type="text" placeholder="City" class="flex-1 p-2 border rounded" required />
                     </div>
                     <input type="text" placeholder="Barangay" class="w-full p-2 border rounded" required />
                     <input type="text" placeholder="Region" class="w-full p-2 border rounded" required />
-                </div>
-                <div class="flex justify-between items-center mt-6">
-                    <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
-                    <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
+                    
+                    <!-- Buttons below the Region text field on Desktop -->
+                    <div class="flex justify-between items-center mt-6 md:mt-4 hidden md:flex">
+                        <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
+                        <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
+                    </div>
                 </div>
             </form>
         </div>
 
         <!-- Order Summary Section -->
-        <div class="w-full md:w-[700px] bg-[#A1B88E] p-6 rounded-r-lg ml-4"> <!-- Increased width further -->
-            <h2 class="text-lg font-semibold mb-4">Order Summary</h2>
-            <div class="bg-white p-4 rounded-lg flex items-center border-2 border-[#535C4B]">
-                <img src={selectedItem.image} alt={selectedItem.name} class="w-24 h-24 rounded mr-4" />
-                <div class="flex-1">
+        <div class="w-full md:w-[700px] bg-[#A1B88E] p-4 md:p-6 rounded-lg md:rounded-r-lg mt-4 md:mt-0 md:ml-4">
+            <h2 class="text-lg font-semibold mb-4 text-center md:text-left">Order Summary</h2>
+            <div class="bg-white p-4 rounded-lg flex flex-col md:flex-row items-center border-2 border-[#535C4B]">
+                <img src={selectedItem.image} alt={selectedItem.name} class="w-24 h-24 rounded mb-4 md:mb-0 md:mr-4" />
+                <div class="flex-1 text-center md:text-left">
                     <h3 class="font-semibold">{selectedItem.name}</h3>
-                    <div class="flex items-center mt-2">
-                        <input type="number" bind:value={quantity} min="1" class="w-16 p-1 border rounded mr-2 border-[#535C4B]" on:input={() => calculatePrice()} />
+                    <div class="flex items-center justify-center md:justify-start mt-2">
+                        <input type="number" bind:value={quantity} min="1" max="20" class="w-16 p-1 border rounded mr-2 border-[#535C4B]" on:input={() => {
+                            if (quantity > 20) {
+                                alert("Quantity limit is 20.");
+                                quantity = 20; 
+                            }
+                            calculatePrice();
+                        }} 
+                        />
                         <span class="text-gray-700">₱{(selectedItem.price * quantity).toFixed(2)}</span>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Buttons Section (Mobile) -->
+        <div class="w-full flex justify-between items-center mt-4 md:hidden">
+            <!-- Cancel Button (Mobile) -->
+            <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
+            
+            <!-- Place Order Button (Mobile) -->
+            <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
         </div>
 
     </div>

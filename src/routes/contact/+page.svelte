@@ -1,47 +1,52 @@
 <script>
 // @ts-nocheck
 
-    let name = '';
-    let email = '';
-    let subject = '';
-    let message = '';
-    let alertMessage = '';
-    let alertVisible = false;
-    let errorMessage = '';
-    let errorVisible = false;
+import { validateForm } from '$lib/formValidator2';
 
-    function handleSubmit() {
-        // Reset error message visibility before checking
-        errorVisible = false;
-        errorMessage = '';
+let name = '';
+let email = '';
+let subject = '';
+let message = '';
+let alertMessage = '';
+let alertVisible = false;
+let errorMessage = '';
+let errorVisible = false;
 
-        // Validate the form
-        const { isValid, errorMessage: validationMessage } = validateForm(name, email, message);
+function handleSubmit() {
+    // Reset error message visibility before checking
+    errorVisible = false;
+    errorMessage = '';
 
-        if (!isValid) {
-            errorMessage = validationMessage;
-            errorVisible = true;
-            return; // Prevent form submission if validation fails
-        }
+    // Validate the form
+    const { isValid, errors } = validateForm({ name, email, subject, message });
 
-        // Handle form submission logic here
-        console.log({ name, email, subject, message });
-
-        // Set the success message and make it visible
-        alertMessage = 'Message successfully sent!';
-        alertVisible = true;
-
-        // Hide the alert after 3 seconds
-        setTimeout(() => {
-            alertVisible = false;
-        }, 3000);
-
-        // Reset the form
-        name = '';
-        email = '';
-        subject = '';
-        message = '';
+    // Check if there are any validation errors
+    if (!isValid) {
+        // Display the first error message
+        errorMessage = errors[Object.keys(errors)[0]] || 'Please correct the errors in the form.';
+        errorVisible = true;
+        return; // Prevent form submission if validation fails
     }
+
+    // Handle form submission logic here
+    console.log({ name, email, subject, message });
+
+    // Set the success message and make it visible
+    alertMessage = 'Message successfully sent!';
+    alertVisible = true;
+
+    // Hide the alert after 3 seconds
+    setTimeout(() => {
+        alertVisible = false;
+    }, 3000);
+
+    // Reset the form fields
+    name = '';
+    email = '';
+    subject = '';
+    message = '';
+}
+
 </script>
 
 <style>

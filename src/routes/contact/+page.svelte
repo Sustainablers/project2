@@ -1,8 +1,6 @@
 <script>
 // @ts-nocheck
 
-  import { validateForm } from "$lib/formValidator2";
-  import { expect, test, vi } from 'vitest';
     let name = '';
     let email = '';
     let subject = '';

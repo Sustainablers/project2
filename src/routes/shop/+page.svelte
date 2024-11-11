@@ -2,19 +2,76 @@
 // @ts-nocheck
 
     
-    import { Card, Button } from 'flowbite-svelte';
+import { Card, Button } from 'flowbite-svelte';
     
     let filterType = 'all';
     let showResults = 16;
     let sortBy = 'name';
     let showModal = false;
-    // @ts-ignore
     let selectedItem = null; 
     let quantity = 1;
+
+    // Form data object
+    let formData = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        address: '',
+        postalCode: '',
+        city: '',
+        barangay: '',
+        region: '',
     
-    function calculatePrice() {
-        // @ts-ignore
-        return selectedItem.price * quantity;
+    };
+    
+    
+    // Validation function
+    function validateForm() {
+        const errors = {};
+        if (!formData.firstName) errors.firstName = "First name is required.";
+        if (!formData.lastName) errors.lastName = "Last name is required.";
+        if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = "Invalid email.";
+        if (!formData.phone || !/^\d{10,12}$/.test(formData.phone)) errors.phone = "Invalid phone number.";
+        if (!formData.postalCode || !/^\d{4,5}$/.test(formData.postalCode)) errors.postalCode = "Invalid postal code.";
+        return errors;
+    }
+
+    // Handle form submission
+    function handleSubmit(event) {
+        event.preventDefault();
+        const errors = validateForm();
+        
+        if (Object.keys(errors).length === 0) {
+            alert('Order placed for ' + selectedItem.name);
+            closeModal();
+
+            // Clear the form
+            formData = {
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                address: '',
+                postalCode: '',
+                city: '',
+                barangay: '',
+                region: '',
+            };
+        } else {
+            console.log(errors); // Log errors for debugging
+        }
+    }
+    
+
+    function handleBuyNow(item) {
+        selectedItem = item;
+        showModal = true;
+    }
+
+    function closeModal() {
+        showModal = false;
+        selectedItem = null;
     }
     
     const items = {
@@ -48,27 +105,10 @@
     // @ts-ignore
     ).sort((a, b) => sortBy === 'name' ? a.name.localeCompare(b.name) : a.price - b.price)
         .slice(0, showResults);
-    
-    // @ts-ignore
-    function handleBuyNow(item) {
-        selectedItem = item; 
-        showModal = true; 
-    }
-    
-    function closeModal() {
-        showModal = false; 
-        selectedItem = null; 
-    }
-    
-    // @ts-ignore
-    function handleSubmit(event) {
-        event.preventDefault();
+  
 
-        // @ts-ignore
-        alert('Order placed for ' + selectedItem.name);
-        closeModal(); 
-    }
-    </script>
+</script>
+
     
     <!-- Full-Width Filter Section -->
     <div class="w-full bg-[#426B1F] text-white p-2 flex flex-col md:flex-row items-stretch justify-between">
@@ -130,32 +170,28 @@
     <div class="bg-white p-4 md:p-6 rounded shadow-lg w-full max-w-4xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
         
         <!-- Order Form Section -->
-        <div class="flex-1 w-full">
-            <h2 class="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">Order Form</h2>
-            <form on:submit={handleSubmit}>
-                <div class="space-y-4">
-                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                        <input type="text" placeholder="Name" class="flex-1 p-2 border rounded" required />
-                        <input type="text" placeholder="Last Name" class="flex-1 p-2 border rounded" required />
-                    </div>
-                    <input type="email" placeholder="Email" class="w-full p-2 border rounded" required />
-                    <input type="tel" placeholder="Phone" class="w-full p-2 border rounded" required />
-                    <input type="text" value="Philippines" class="w-full p-2 border rounded bg-gray-100" readOnly />
-                    <input type="text" placeholder="Address" class="w-full p-2 border rounded" required />
-                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                        <input type="text" placeholder="Postal Code" class="flex-1 p-2 border rounded" required />
-                        <input type="text" placeholder="City" class="flex-1 p-2 border rounded" required />
-                    </div>
-                    <input type="text" placeholder="Barangay" class="w-full p-2 border rounded" required />
-                    <input type="text" placeholder="Region" class="w-full p-2 border rounded" required />
+        <form on:submit={handleSubmit}>
+            <div class="space-y-4">
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <input type="text" bind:value={formData.firstName} placeholder="First Name" class="flex-1 p-2 border rounded" required />
+                    <input type="text" bind:value={formData.lastName} placeholder="Last Name" class="flex-1 p-2 border rounded" required />
                 </div>
-                <div class="flex justify-between items-center mt-6">
-                    <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
-                    <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
+                <input type="email" bind:value={formData.email} placeholder="Email" class="w-full p-2 border rounded" required />
+                <input type="tel" bind:value={formData.phone} placeholder="Phone" class="w-full p-2 border rounded" required />
+                <input type="text" value="Philippines" class="w-full p-2 border rounded bg-gray-100" readOnly />
+                <input type="text" bind:value={formData.address} placeholder="Address" class="w-full p-2 border rounded" required />
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <input type="text" bind:value={formData.postalCode} placeholder="Postal Code" class="flex-1 p-2 border rounded" required />
+                    <input type="text" bind:value={formData.city} placeholder="City" class="flex-1 p-2 border rounded" required />
                 </div>
-            </form>
-        </div>
-
+                <input type="text" bind:value={formData.barangay} placeholder="Barangay" class="w-full p-2 border rounded" required />
+                <input type="text" bind:value={formData.region} placeholder="Region" class="w-full p-2 border rounded" required />
+            </div>
+            <div class="flex justify-between items-center mt-6">
+                <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
+                <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
+            </div>
+        </form>
         <!-- Order Summary Section -->
         <div class="w-full md:w-[700px] bg-[#A1B88E] p-4 md:p-6 rounded-lg md:rounded-r-lg mt-4 md:mt-0 md:ml-4">
             <h2 class="text-lg font-semibold mb-4 text-center md:text-left">Order Summary</h2>

@@ -112,6 +112,7 @@
                 <div class="md:w-1/2 md:pl-8 flex flex-col items-center">
                     <form class="space-y-4 w-full" on:submit|preventDefault={handleSubmit}>
                         <div>
+                            <!-- svelte-ignore a11y_label_has_associated_control -->
                             <label class="block text-gray-700">Your name</label>
                             <input type="text"
                                    class="w-full p-2 border rounded {errors.name ? 'error-field' : 'valid-field'}" 
@@ -123,6 +124,7 @@
                             {/if}
                         </div>
                         <div>
+                            <!-- svelte-ignore a11y_label_has_associated_control -->
                             <label class="block text-gray-700">Email address</label>
                             <input type="email" 
                                    class="w-full p-2 border rounded {errors.email ? 'error-field' : 'valid-field'}" 
@@ -134,6 +136,7 @@
                             {/if}
                         </div>
                         <div>
+                            <!-- svelte-ignore a11y_label_has_associated_control -->
                             <label class="block text-gray-700">Subject</label>
                             <input type="text" 
                                    class="w-full p-2 border border-gray-300 rounded" 
@@ -141,6 +144,7 @@
                                    bind:value={subject} />
                         </div>
                         <div>
+                            <!-- svelte-ignore a11y_label_has_associated_control -->
                             <label class="block text-gray-700">Message</label>
                             <textarea class="w-full p-2 border rounded {errors.message ? 'error-field' : 'valid-field'}" 
                                       placeholder="Hi! I'd like to ask about" 

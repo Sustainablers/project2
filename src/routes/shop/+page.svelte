@@ -1,78 +1,85 @@
 <script>
+    
 // @ts-nocheck
-
-    
 import { Card, Button } from 'flowbite-svelte';
-    
-    let filterType = 'all';
-    let showResults = 16;
-    let sortBy = 'name';
-    let showModal = false;
-    let selectedItem = null; 
-    let quantity = 1;
 
-    // Form data object
-    let formData = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        address: '',
-        postalCode: '',
-        city: '',
-        barangay: '',
-        region: '',
+let filterType = 'all';
+let showResults = 16;
+let sortBy = 'name';
+let showModal = false;
+let selectedItem = null; 
+let quantity = 1;
+
+// Form data object
+let formData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    postalCode: '',
+    city: '',
+    barangay: '',
+    region: '',
+};
+
+// Error messages object
+let errors = {};
+
+// Validation function
+function validateForm() {
+    const newErrors = {};
+    if (!formData.firstName) newErrors.firstName = "First name is required.";
+    if (!formData.lastName) newErrors.lastName = "Last name is required.";
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email.";
+    if (!formData.phone || !/^\d{10,12}$/.test(formData.phone)) newErrors.phone = "Invalid phone number.";
+    if (!formData.postalCode || !/^\d{4,5}$/.test(formData.postalCode)) newErrors.postalCode = "Invalid postal code.";
+    return newErrors;
+}
+
+// Handle form submission
+function handleSubmit(event) {
+    event.preventDefault();
+    errors = validateForm();
     
-    };
-    
-    
-    // Validation function
-    function validateForm() {
-        const errors = {};
-        if (!formData.firstName) errors.firstName = "First name is required.";
-        if (!formData.lastName) errors.lastName = "Last name is required.";
-        if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = "Invalid email.";
-        if (!formData.phone || !/^\d{10,12}$/.test(formData.phone)) errors.phone = "Invalid phone number.";
-        if (!formData.postalCode || !/^\d{4,5}$/.test(formData.postalCode)) errors.postalCode = "Invalid postal code.";
-        return errors;
+    if (Object.keys(errors).length === 0) {
+        alert('Order placed for ' + selectedItem.name);
+        closeModal();
+
+        // Clear the form and errors
+        formData = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            address: '',
+            postalCode: '',
+            city: '',
+            barangay: '',
+            region: '',
+        };
+        errors = {}; // Clear errors after successful submission
+    } else {
+        console.log(errors); // Log errors for debugging
     }
+}
 
-    // Handle form submission
-    function handleSubmit(event) {
-        event.preventDefault();
-        const errors = validateForm();
-        
-        if (Object.keys(errors).length === 0) {
-            alert('Order placed for ' + selectedItem.name);
-            closeModal();
+function handleBuyNow(item) {
+    selectedItem = item;
+    showModal = true;
+}
 
-            // Clear the form
-            formData = {
-                firstName: '',
-                lastName: '',
-                email: '',
-                phone: '',
-                address: '',
-                postalCode: '',
-                city: '',
-                barangay: '',
-                region: '',
-            };
-        } else {
-            console.log(errors); // Log errors for debugging
-        }
-    }
-    
+function closeModal() {
+    showModal = false;
+    selectedItem = null;
+}
 
-    function handleBuyNow(item) {
-        selectedItem = item;
-        showModal = true;
-    }
+// Update errors dynamically as the user types
+function handleInputChange(field) {
+    // Update formData
+    errors[field] = ""; // Clear the specific error for this field
+}
 
-    function closeModal() {
-        showModal = false;
-        selectedItem = null;
-    }
     
     const items = {
         fruits: [
@@ -163,38 +170,51 @@ import { Card, Button } from 'flowbite-svelte';
         {/each}
     </div>
 </div>
-
 <!-- Order Form Modal -->
 {#if showModal}
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 px-4">
     <div class="bg-white p-4 md:p-6 rounded shadow-lg w-full max-w-4xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
-        
         <!-- Order Form Section -->
         <div class="flex-1 w-full">
-        <h2 class="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">Order Form</h2>
-        <form on:submit={handleSubmit}>
-            <div class="space-y-4">
-                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                    <input type="text" bind:value={formData.firstName} placeholder="First Name" class="flex-1 p-2 border rounded" required />
-                    <input type="text" bind:value={formData.lastName} placeholder="Last Name" class="flex-1 p-2 border rounded" required />
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">Order Form</h2>
+            <form on:submit={handleSubmit}>
+                <div class="space-y-4">
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <input type="text" bind:value={formData.firstName} on:input={() => handleInputChange("firstName")} placeholder="First Name" class="flex-1 p-2 border rounded" required />
+                        {#if errors.firstName}<span class="text-red-500 text-sm">{errors.firstName}</span>{/if}
+
+                        <input type="text" bind:value={formData.lastName} on:input={() => handleInputChange("lastName")} placeholder="Last Name" class="flex-1 p-2 border rounded" required />
+                        {#if errors.lastName}<span class="text-red-500 text-sm">{errors.lastName}</span>{/if}
+                    </div>
+
+                    <input type="email" bind:value={formData.email} on:input={() => handleInputChange("email")} placeholder="Email" class="w-full p-2 border rounded" required />
+                    {#if errors.email}<span class="text-red-500 text-sm">{errors.email}</span>{/if}
+
+                    <input type="tel" bind:value={formData.phone} on:input={() => handleInputChange("phone")} placeholder="Phone" class="w-full p-2 border rounded" required />
+                    {#if errors.phone}<span class="text-red-500 text-sm">{errors.phone}</span>{/if}
+
+                    <input type="text" value="Philippines" class="w-full p-2 border rounded bg-gray-100" readOnly />
+                    
+                    <input type="text" bind:value={formData.address} on:input={() => handleInputChange("address")} placeholder="Address" class="w-full p-2 border rounded" required />
+                    
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <input type="text" bind:value={formData.postalCode} on:input={() => handleInputChange("postalCode")} placeholder="Postal Code" class="flex-1 p-2 border rounded" required />
+                        {#if errors.postalCode}<span class="text-red-500 text-sm">{errors.postalCode}</span>{/if}
+
+                        <input type="text" bind:value={formData.city} on:input={() => handleInputChange("city")} placeholder="City" class="flex-1 p-2 border rounded" required />
+                    </div>
+
+                    <input type="text" bind:value={formData.barangay} on:input={() => handleInputChange("barangay")} placeholder="Barangay" class="w-full p-2 border rounded" required />
+                    <input type="text" bind:value={formData.region} on:input={() => handleInputChange("region")} placeholder="Region" class="w-full p-2 border rounded" required />
                 </div>
-                <input type="email" bind:value={formData.email} placeholder="Email" class="w-full p-2 border rounded" required />
-                <input type="tel" bind:value={formData.phone} placeholder="Phone" class="w-full p-2 border rounded" required />
-                <input type="text" value="Philippines" class="w-full p-2 border rounded bg-gray-100" readOnly />
-                <input type="text" bind:value={formData.address} placeholder="Address" class="w-full p-2 border rounded" required />
-                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                    <input type="text" bind:value={formData.postalCode} placeholder="Postal Code" class="flex-1 p-2 border rounded" required />
-                    <input type="text" bind:value={formData.city} placeholder="City" class="flex-1 p-2 border rounded" required />
+                
+                <div class="flex justify-between items-center mt-6">
+                    <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
+                    <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
                 </div>
-                <input type="text" bind:value={formData.barangay} placeholder="Barangay" class="w-full p-2 border rounded" required />
-                <input type="text" bind:value={formData.region} placeholder="Region" class="w-full p-2 border rounded" required />
-            </div>
-            <div class="flex justify-between items-center mt-6">
-                <button type="button" on:click={closeModal} class="text-gray-600 text-lg">Cancel</button>
-                <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+
         <!-- Order Summary Section -->
         <div class="w-full md:w-[700px] bg-[#A1B88E] p-4 md:p-6 rounded-lg md:rounded-r-lg mt-4 md:mt-0 md:ml-4">
             <h2 class="text-lg font-semibold mb-4 text-center md:text-left">Order Summary</h2>

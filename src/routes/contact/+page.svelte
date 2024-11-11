@@ -1,15 +1,25 @@
-<!-- svelte-ignore css_unused_selector -->
-<!-- src/routes/contact/+page.svelte -->
 <script>
     let name = '';
     let email = '';
     let subject = '';
     let message = '';
+    let alertMessage = '';
+    let alertVisible = false;
 
     function handleSubmit() {
         // Handle form submission logic here
         console.log({ name, email, subject, message });
-        // Reset the form if necessary
+
+        // Set the success message and make it visible
+        alertMessage = 'Message successfully sent!';
+        alertVisible = true;
+
+        // Hide the alert after 3 seconds
+        setTimeout(() => {
+            alertVisible = false;
+        }, 3000);
+
+        // Reset the form
         name = '';
         email = '';
         subject = '';
@@ -18,13 +28,36 @@
 </script>
 
 <style>
-   
+    .alert {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        opacity: 1;
+        transition: opacity 1s ease;
+    }
+
+    .alert.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
 </style>
 
 <div class="min-h-screen flex flex-col items-center justify-start bg-white">
     <div class="w-full max-w-4xl p-8">
         <h1 class="text-5xl font-bold mb-4 text-center">Contact Us</h1>
         <hr class="border-t-2 border-green-700 mb-8" />
+        
+        {#if alertVisible}
+            <div class="alert" class:hidden={!alertVisible}>{alertMessage}</div>
+        {/if}
+
         <div class="flex flex-col md:flex-row">
             <div class="md:w-1/2 mb-8 md:mb-0 flex flex-col items-start">
                 <div class="mb-6">
@@ -68,7 +101,6 @@
                     </div>
                     <div>
                         <button type="submit" class="w-full p-2 text-white rounded" style="background-color: #426B1F;">Submit</button>
-
                     </div>
                 </form>
             </div>

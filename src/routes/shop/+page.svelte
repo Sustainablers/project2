@@ -170,6 +170,8 @@ import { Card, Button } from 'flowbite-svelte';
     <div class="bg-white p-4 md:p-6 rounded shadow-lg w-full max-w-4xl flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
         
         <!-- Order Form Section -->
+        <div class="flex-1 w-full">
+        <h2 class="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">Order Form</h2>
         <form on:submit={handleSubmit}>
             <div class="space-y-4">
                 <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
@@ -192,6 +194,7 @@ import { Card, Button } from 'flowbite-svelte';
                 <button type="submit" class="bg-[#426B1F] text-white px-4 py-2 rounded text-lg">Place Order</button>
             </div>
         </form>
+    </div>
         <!-- Order Summary Section -->
         <div class="w-full md:w-[700px] bg-[#A1B88E] p-4 md:p-6 rounded-lg md:rounded-r-lg mt-4 md:mt-0 md:ml-4">
             <h2 class="text-lg font-semibold mb-4 text-center md:text-left">Order Summary</h2>

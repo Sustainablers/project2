@@ -1,12 +1,31 @@
 <script>
+// @ts-nocheck
+
+  import { validateForm } from "$lib/formValidator2";
+  import { expect, test, vi } from 'vitest';
     let name = '';
     let email = '';
     let subject = '';
     let message = '';
     let alertMessage = '';
     let alertVisible = false;
+    let errorMessage = '';
+    let errorVisible = false;
 
     function handleSubmit() {
+        // Reset error message visibility before checking
+        errorVisible = false;
+        errorMessage = '';
+
+        // Validate the form
+        const { isValid, errorMessage: validationMessage } = validateForm(name, email, message);
+
+        if (!isValid) {
+            errorMessage = validationMessage;
+            errorVisible = true;
+            return; // Prevent form submission if validation fails
+        }
+
         // Handle form submission logic here
         console.log({ name, email, subject, message });
 
@@ -47,6 +66,26 @@
         opacity: 0;
         visibility: hidden;
     }
+
+    .error {
+        background-color: #f44336;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        opacity: 1;
+        transition: opacity 1s ease;
+    }
+
+    .error.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
 </style>
 
 <div class="min-h-screen flex flex-col items-center justify-start bg-white">
@@ -56,6 +95,10 @@
         
         {#if alertVisible}
             <div class="alert" class:hidden={!alertVisible}>{alertMessage}</div>
+        {/if}
+
+        {#if errorVisible}
+            <div class="error" class:hidden={!errorVisible}>{errorMessage}</div>
         {/if}
 
         <div class="flex flex-col md:flex-row">
